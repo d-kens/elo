@@ -80,7 +80,7 @@ ${share}
 
 <div class="wrap">
   <nav aria-label="Site">
-    <a class="logo" href="${r}index.html" aria-label="${NAME}">Michi<span class="logo-rest" aria-hidden="true"> Academy</span></a>
+    <a class="logo" href="${r}index.html" aria-label="${NAME}"><span class="logo-word" aria-hidden="true">Michi</span><span class="logo-rest" aria-hidden="true">Academy</span></a>
     <ul>
       ${navLink('paths.html', 'The path', 'paths')}
       ${navLink('search.html', 'Search', 'search')}
