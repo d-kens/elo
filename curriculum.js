@@ -1,4 +1,4 @@
-/* Shuhari curriculum: read by build.js to make the path page, the notes pages and the search index. */
+/* Michi Academy curriculum: read by build.js to make the path page, the notes pages and the search index. */
 (function () {
   /* ---------- publishing status ----------
      When you publish notes for a module:

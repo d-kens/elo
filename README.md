@@ -1,8 +1,8 @@
-# Shuhari Academy
+# Michi Academy
 
 Learn DevOps, one step at a time. A static site of detailed notes for a step-by-step path, from the DevOps mindset to running systems in production.
 
-Live at <https://d-kens.github.io/shuhari/>.
+Live at <https://d-kens.github.io/michi/>.
 
 ## Run it locally
 
@@ -40,4 +40,4 @@ Old links like `notes.html?m=linux` redirect to `notes/linux.html`.
 
 ## Search engines
 
-The build writes `sitemap.xml`. Submit `https://d-kens.github.io/shuhari/sitemap.xml` in Google Search Console. A project site can't serve its own `robots.txt`, so the sitemap has to be submitted by hand.
+The build writes `sitemap.xml`. Submit `https://d-kens.github.io/michi/sitemap.xml` in Google Search Console. A project site can't serve its own `robots.txt`, so the sitemap has to be submitted by hand.

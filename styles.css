@@ -79,14 +79,6 @@ section { padding-block: 88px; }
 .define .gloss { font: 500 16px/1.5 var(--f-display); margin-top: 12px; max-width: 38em; color: var(--muted); }
 .define .gloss em { font-style: normal; text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 5px; }
 @media (max-width: 860px) { .define .pron span + span::before { display: none; } }
-.stages { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--fg); }
-.stages li { padding: 22px 28px 0 0; }
-.stages li + li { padding-left: 28px; border-left: 1px solid var(--line); }
-.stages .kanji { display: block; font: 800 40px/1 var(--f-display); color: var(--red); }
-.stages h3 { font-size: clamp(22px, 2.4vw, 28px); margin-block: 14px 8px; }
-.stages p { color: var(--muted); font-size: 16px; line-height: 1.5; }
-@media (max-width: 860px) { .stages { grid-template-columns: 1fr; } .stages li, .stages li + li { padding: 22px 0; border-left: 0; } .stages li + li { border-top: 1px solid var(--line); } }
-
 /* the path at a glance */
 .home > .glance { padding-top: 0; }
 .glance h2 { font-size: clamp(32px, 4.4vw, 54px); margin-top: 10px; }
