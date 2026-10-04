@@ -3,7 +3,7 @@
   (the slug is in curriculum.js, e.g. notes/linux.md), then add the
   module to the NOTES list at the top of curriculum.js.
 
-  The page already shows the module title, tags and lab/checkpoint,
+  The page already shows the module title, tags and lab,
   so start straight with the sections below. Keep examples generic:
   no real company systems, hostnames, logs or credentials.
 -->
@@ -40,9 +40,9 @@ hello
 
 - A common mistake, and how to spot it.
 
-## Lab / checkpoint
+## Lab
 
-A worked answer or write-up for this module's lab or checkpoint.
+A worked answer or write-up for this module's lab.
 
 ## Further reading
 

@@ -125,8 +125,7 @@ section { padding-block: 88px; }
 .tags li { font-size: 14px; line-height: 1.3; padding: 6px 11px; background: var(--bg-2); color: var(--fg); border-radius: 2px; }
 .task { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px; align-items: baseline; margin-top: 18px; font-size: 15.5px; line-height: 1.5; color: var(--muted); max-width: 44em; }
 .task .mono { font-size: 11px; color: var(--fg); }
-.task .lab::before, .task .checkpoint::before, .task .project::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; background: var(--red); }
-.task .checkpoint::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--red); border-radius: 50%; }
+.task .lab::before, .task .project::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; background: var(--red); }
 .task .project::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--red), inset 0 0 0 3.5px var(--bg), inset 0 0 0 8px var(--red); }
 .pm .note { margin-top: 16px; font-size: 14px; color: var(--muted); font-style: italic; }
 .phase-head .sec { margin-top: 20px; padding-left: 12px; border-left: 2px solid var(--red); font-size: 14.5px; }
@@ -185,8 +184,7 @@ section { padding-block: 88px; }
 .hljs-deletion { color: var(--red); }
 .your-turn { margin-top: 56px; padding: 22px 24px; background: var(--bg-2); border-left: 4px solid var(--red); }
 .your-turn .mono { font-size: 11px; color: var(--fg); }
-.your-turn .lab::before, .your-turn .checkpoint::before, .your-turn .project::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; background: var(--red); }
-.your-turn .checkpoint::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--red); border-radius: 50%; }
+.your-turn .lab::before, .your-turn .project::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; background: var(--red); }
 .your-turn .project::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--red), inset 0 0 0 3.5px var(--bg-2), inset 0 0 0 8px var(--red); border-radius: 50%; }
 .your-turn p { margin-top: 8px; font-size: 17px; }
 .pn { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
@@ -234,3 +232,7 @@ section { padding-block: 88px; }
 footer { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-block: 36px 52px; color: var(--muted); font-size: 14px; }
 footer .l { display: flex; align-items: center; gap: 14px; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* the DevOps loop diagram in Module 1 */
+.md figure.loop { margin: 32px 0; }
+@media (max-width: 560px) { .md figure.loop text { font-size: 32px; } }

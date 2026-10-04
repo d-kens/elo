@@ -1,261 +1,121 @@
-## At a glance
+This module answers five questions, in order:
 
-**DevOps is a way of working where the people who build software and the people who run it share responsibility for getting changes to users quickly and safely, and automate as much of that journey as they can.**
+1. What is DevOps?
+2. How does work move through a DevOps team?
+3. Why did DevOps appear?
+4. How do you do DevOps well?
+5. How do you know it is working?
 
-By the end of this module you will be able to:
+Then it gives you a quick checklist for any team, and three related names you will hear.
 
-1. Explain the problem DevOps solves.
-2. Describe DevOps using the CALMS model.
-3. Explain the Three Ways: flow, feedback and continuous learning.
-4. Name the four DORA metrics and say what improves each one.
-5. Tell DevOps apart from Agile, SRE and Platform Engineering.
+## 1. What is DevOps?
 
-Key terms you will meet:
+**DevOps** joins two words: **Dev** for development, the people who write software, and **Ops** for operations, the people who keep it running for users.
 
-| Term | Meaning in one line |
+**DevOps is a way of working where those two groups work as one team, and automate the steps in between, so new changes reach users quickly and safely.**
+
+It is not a tool you install or a job title. It is how a team works.
+
+So why do job adverts ask for **DevOps engineers**? People with that title usually build the automation that lets a team work the DevOps way: the automated build, test and deploy steps, servers set up from code, and monitoring. That is what the rest of this path teaches.
+
+## 2. How does work move? The DevOps loop
+
+Every change to a piece of software goes through the same eight stages. DevOps draws them as an infinity loop, because the loop never ends: what you learn from running the software tells you what to build next.
+
+<figure class="loop"><svg viewBox="-110 10 940 290" role="img" aria-label="The DevOps loop: an infinity sign. The Dev side has Plan, Code, Build and Test. The Ops side has Release, Deploy, Operate and Monitor, which leads back to Plan." style="width:100%;height:auto;font:600 19px var(--f-body);fill:var(--fg)">
+<path d="M360,150 C 300,40 60,40 60,150 C 60,260 300,260 360,150 C 420,40 660,40 660,150 C 660,260 420,260 360,150" fill="none" stroke="var(--muted)" stroke-width="4" opacity=".6"/>
+<path d="M-9,-8 L9,0 L-9,8 z" fill="var(--muted)" transform="translate(306 97) rotate(-150)"/><path d="M-9,-8 L9,0 L-9,8 z" fill="var(--muted)" transform="translate(306 203) rotate(-30)"/><path d="M-9,-8 L9,0 L-9,8 z" fill="var(--muted)" transform="translate(414 97) rotate(-30)"/><path d="M-9,-8 L9,0 L-9,8 z" fill="var(--muted)" transform="translate(414 203) rotate(-150)"/>
+<text x="180" y="162" text-anchor="middle" style="font:800 34px var(--f-display);fill:var(--red)">Dev</text>
+<text x="540" y="162" text-anchor="middle" style="font:800 34px var(--f-display)">Ops</text>
+<circle cx="208" cy="68" r="7" fill="var(--red)"/><text x="218" y="46" text-anchor="middle">Plan</text><circle cx="67" cy="120" r="7" fill="var(--red)"/><text x="53" y="126" text-anchor="end">Code</text><circle cx="67" cy="180" r="7" fill="var(--red)"/><text x="53" y="186" text-anchor="end">Build</text><circle cx="208" cy="232" r="7" fill="var(--red)"/><text x="218" y="266" text-anchor="middle">Test</text><circle cx="512" cy="68" r="7" fill="var(--fg)"/><text x="502" y="46" text-anchor="middle">Release</text><circle cx="653" cy="120" r="7" fill="var(--fg)"/><text x="667" y="126" text-anchor="start">Deploy</text><circle cx="653" cy="180" r="7" fill="var(--fg)"/><text x="667" y="186" text-anchor="start">Operate</text><circle cx="512" cy="232" r="7" fill="var(--fg)"/><text x="502" y="266" text-anchor="middle">Monitor</text>
+</svg></figure>
+
+| Stage | What happens |
 | --- | --- |
-| Deployment | Putting a new version of software into an environment, such as production |
-| Production | The live system real users rely on |
-| Lead time | How long a change takes to go from written to running in production |
-| Feedback loop | How quickly you find out whether a change worked |
-| Handoff | A point where work passes from one person or team to another |
+| **Plan** | Decide what to build or fix next |
+| **Code** | Write the change, and save it in Git so everyone shares one copy |
+| **Build** | Turn the code into a package that is ready to install |
+| **Test** | Check automatically that the change works and breaks nothing |
+| **Release** | Approve a tested version as ready to go live |
+| **Deploy** | Put that version on the servers users reach |
+| **Operate** | Keep the servers and the software running |
+| **Monitor** | Watch how it behaves and spot problems early |
 
-## 1. The problem DevOps solves
+Two things make this DevOps:
 
-Picture a typical company before DevOps.
+- **Dev and Ops work as one team.** Developers and operations people share the whole loop instead of handing work to each other. Developers still mostly write code and operations people still mostly run systems, but both help when something breaks.
+- **Computers do the repeated steps.** Building, testing and deploying happen automatically, not by hand.
 
-- The **development team** writes new features. They are rewarded for shipping change.
-- The **operations team** runs the servers. They are rewarded for keeping things stable.
+## 3. Why did DevOps appear?
 
-Most outages are triggered by a change, so the two teams want opposite things. Developers finish a feature and hand it over. Operations receives code they did not help design and do not fully understand, so they slow releases down to stay safe. People call this **"throwing it over the wall"**.
+Before DevOps, most companies split the loop in two. Developers owned Plan to Test. Operations owned Release to Monitor. Developers worked for months, then handed everything over in one go. People call this **"throwing it over the wall"**.
 
-Here is what that looks like in practice:
+It caused three problems:
 
-1. Developers work for three months on a big release.
-2. They hand it to operations with a long list of manual install steps.
-3. The release happens late at night. Something breaks.
-4. Operations does not know the code, and developers have gone home. Fixing it takes hours.
-5. Both teams decide releases are dangerous, so they release even less often.
-6. The next release is even bigger, which makes it even riskier.
+1. **Slow, big releases.** Changes waited months, then went out together in one large, risky batch.
+2. **Problems found late.** Operations ran code they had never seen. When it broke, users noticed first, and nobody knew which change caused it.
+3. **Blame.** Each team blamed the other, so nobody fixed the real cause.
 
-This is a vicious circle: **big releases are risky, so teams release rarely, which makes releases bigger and riskier still.**
+The problems fed each other. Releases kept breaking, so teams released less often, so each release got bigger and broke even more.
 
-DevOps breaks the circle by doing the opposite: **release small changes often, with shared ownership and automation**, so each release is boring and easy to fix.
+## 4. How do you do DevOps well? The Three Ways
 
-> The word "DevOps" took off around 2009, after Patrick Debois organised the first DevOpsDays conference in Ghent. The same year, engineers at Flickr gave a well-known talk about deploying more than ten times a day by getting development and operations to work together.
+The Three Ways are three principles, one for each problem above. Every DevOps practice in the rest of this path is one of them in action. They were set out by Gene Kim in *The DevOps Handbook*.
 
-## 2. What DevOps is, and what it is not
+| Way | Fixes | What it means | How teams do it |
+| --- | --- | --- | --- |
+| **1. Flow** | Slow, big releases | Move each change round the loop quickly, in small pieces | Small changes, and automated build, test and deploy |
+| **2. Feedback** | Problems found late | Find problems as early as possible, while they are cheap to fix | Automated tests at Test, and monitoring at Monitor |
+| **3. Continuous learning** | Blame | After something breaks, ask "what allowed this?", not "whose fault was it?", and fix that | A short, blameless review after every problem |
 
-DevOps is **culture plus practices**.
+Put simply: flow makes the loop fast, feedback makes it safe, and learning makes each trip round it better than the last.
 
-- **Culture:** developers and operations share the same goal: working software in front of users. Everyone owns the outcome, not just their part of it.
-- **Practices:** version control, automated testing, continuous integration and delivery, infrastructure as code, monitoring, and blameless incident reviews. The rest of this path teaches each of them.
+## 5. How do you know it is working? The DORA metrics
 
-| DevOps is… | DevOps is not… |
+The Three Ways tell you what to do. The DORA metrics tell you whether it is working.
+
+DORA (DevOps Research and Assessment) is a research programme, now part of Google, that has studied thousands of teams. It found four numbers that show how well a team delivers software. The first two measure speed, which shows whether you have flow. The last two measure stability, which shows whether feedback is catching problems.
+
+| Metric | What it measures | What improves it |
+| --- | --- | --- |
+| **Deployment frequency** | How often you deploy (more often is better) | Small changes and automated deploys |
+| **Lead time for changes** | How long a change takes to reach users (shorter is better) | Fast automated tests and less waiting for approvals |
+| **Change failure rate** | Out of all deploys, what share cause a problem (lower is better) | Better tests and smaller changes |
+| **Time to restore service** | When a deploy causes a problem, how long until it works again (shorter is better) | Good monitoring and a quick way to undo a deploy |
+
+DORA's key finding: **the best teams are both fast and stable.** You do not have to choose. Small, frequent changes are easier to test and easier to undo.
+
+## 6. A quick check: CALMS
+
+DORA measures results. CALMS checks the habits behind them. Ask these five questions about any team:
+
+| Letter | Ask |
 | --- | --- |
-| A way of working shared by the whole team | A job title or a separate "DevOps team" sitting in the middle |
-| Small, frequent, automated releases | Buying a set of tools |
-| Measuring results and improving | Moving fast and ignoring stability |
-| Developers caring about production | Developers doing all of operations alone |
-
-A company can hire "DevOps engineers" and buy every popular tool and still not be doing DevOps. If teams still throw work over the wall, nothing has really changed.
-
-## 3. The CALMS model
-
-CALMS is a simple checklist for judging whether a team really works the DevOps way. It started as CAMS (John Willis and Damon Edwards), and Jez Humble later added the L.
-
-### C: Culture
-
-People share responsibility and trust each other. When something fails, the question is "what in our system allowed this?" and not "whose fault is it?"
-
-- **Healthy sign:** developers join incident calls for their own services.
-- **Warning sign:** "That is an ops problem."
-
-The DORA research uses Ron Westrum's three culture types. **Generative** cultures, where information flows freely and failures lead to learning, perform best. **Pathological** cultures, built on fear and blame, perform worst.
-
-### A: Automation
-
-Machines do the repetitive, error-prone work: building, testing, deploying and creating servers.
-
-- **Healthy sign:** one command, or one merged pull request, deploys to production.
-- **Warning sign:** a 40-step deployment document that only one person understands.
-
-### L: Lean
-
-Work flows in small batches, with as little waiting as possible. Ideas come from lean manufacturing: limit work in progress and remove waste such as waiting, handoffs and rework.
-
-- **Healthy sign:** changes are small and reach production within a day or two.
-- **Warning sign:** finished features sit waiting weeks for a release date.
-
-### M: Measurement
-
-Decisions are based on data, not opinion. Teams measure how they deliver (the DORA metrics, below) and how their systems behave (monitoring).
-
-- **Healthy sign:** the team knows its deployment frequency and failure rate.
-- **Warning sign:** "We think it is going fine."
-
-### S: Sharing
-
-Knowledge, tools and lessons move freely between people and teams: shared dashboards, written runbooks, open postmortems.
-
-- **Healthy sign:** an incident write-up is shared so other teams can learn from it.
-- **Warning sign:** knowledge lives in one person's head.
-
-## 4. The Three Ways
-
-The Three Ways come from Gene Kim's books *The Phoenix Project* and *The DevOps Handbook*. They describe the principles behind every DevOps practice. Learn them in order: each one builds on the one before.
-
-### The First Way: flow
-
-**Make work move quickly and smoothly from idea to production.**
-
-- Work in small batches.
-- Reduce handoffs and waiting.
-- Make work visible, for example on a board.
-- Automate the path to production.
-
-Think of a motorway. Traffic moves fastest when there are no tollbooths and no sudden bottlenecks.
-
-### The Second Way: feedback
-
-**Find out about problems as early and as quickly as possible, so they are cheap to fix.**
-
-- Automated tests run on every change.
-- Monitoring and alerts show how production behaves.
-- Developers see the effect of their changes in production.
-
-A bug found by a test in two minutes costs almost nothing. The same bug found by a customer a month later costs a lot.
-
-### The Third Way: continuous learning
-
-**Create a culture that experiments, learns from failure and keeps improving.**
-
-- Hold blameless reviews after incidents.
-- Set aside time to improve tools and processes, not just ship features.
-- Share what you learn across teams.
-
-| Way | Question it answers | Example practice |
-| --- | --- | --- |
-| Flow | How fast does work move? | Continuous integration and delivery |
-| Feedback | How fast do we learn something went wrong? | Automated tests and monitoring |
-| Continuous learning | Do we get better over time? | Blameless postmortems |
-
-## 5. The DORA metrics
-
-DORA (DevOps Research and Assessment) is a research programme that has studied thousands of teams since 2014. It was founded by Nicole Forsgren, Jez Humble and Gene Kim, and is now part of Google. Its main findings are in the book *Accelerate* and the yearly *State of DevOps* reports.
-
-DORA found that **four metrics** describe how well a team delivers software. Two measure **speed** and two measure **stability**.
-
-### Speed
-
-**1. Deployment frequency**: how often the team deploys to production.
-
-- How to measure: count production deployments per day, week or month.
-- What improves it: smaller changes, an automated pipeline, fewer manual approvals.
-
-**2. Lead time for changes**: how long it takes a commit to reach production.
-
-- How to measure: time from commit to running in production.
-- What improves it: fast automated tests, quick code reviews, removing handoffs and waiting.
-
-### Stability
-
-**3. Change failure rate**: the percentage of deployments that cause a problem in production, such as an outage, a rollback or an urgent fix.
-
-- How to measure: failed deployments ÷ total deployments.
-- What improves it: better automated testing, smaller changes, gradual rollouts such as canary releases.
-
-**4. Time to restore service**: how long it takes to recover when a deployment causes a failure.
-
-- How to measure: time from the failure starting to service being back to normal.
-- What improves it: good monitoring and alerts, quick rollbacks, practised incident response.
-
-> In 2023 DORA renamed the fourth metric **failed deployment recovery time**, to make clear it measures recovery from failures caused by a deployment, not from every outage. You will see both names. Recent reports also track a fifth measure, **rework rate**, but the four above are the core.
-
-### The key finding
-
-**The best teams are both fast and stable.** Speed and stability are not a trade-off: they reinforce each other. Small, frequent changes are easier to test, easier to understand and easier to roll back.
-
-| Metric | Measures | Goal |
-| --- | --- | --- |
-| Deployment frequency | Speed | Higher |
-| Lead time for changes | Speed | Lower |
-| Change failure rate | Stability | Lower |
-| Time to restore service | Stability | Lower |
-
-Use these metrics to help a team improve, never to rank individuals or punish teams. Once a metric becomes a target people are judged by, people learn to game it.
-
-## 6. DevOps compared with Agile, SRE and Platform Engineering
-
-These ideas overlap and are often confused. The simplest way to separate them is to ask what each one focuses on.
-
-| Approach | Main focus | Key question |
-| --- | --- | --- |
-| Agile | Planning and building software in short cycles | Are we building the right thing, in small steps? |
-| DevOps | Delivering and running software, end to end | Can we get changes to users quickly and safely? |
-| SRE | Running reliable systems with engineering and measurable targets | How reliable must it be, and are we meeting that? |
-| Platform Engineering | Building internal tools that make the DevOps way easy | Can teams self-serve what they need? |
-
-- **Agile → DevOps:** Agile made development faster, but code still waited for slow, manual releases. DevOps extends Agile thinking all the way to production.
-- **DevOps → SRE:** SRE, created at Google, is one concrete way to practise DevOps. It uses reliability targets called SLOs and error budgets to decide when to ship and when to focus on stability. Google describes it as "class SRE implements interface DevOps". Module 16 covers SRE.
-- **DevOps → Platform Engineering:** as companies grow, every team rebuilding its own pipelines and infrastructure becomes wasteful. A platform team builds shared "golden paths" so product teams get DevOps capabilities without being experts in everything. Module 20 covers this.
-
-They are not competitors. A healthy organisation often uses all four together.
-
-## 7. Try it: map a delivery process
-
-This exercise makes the ideas concrete. It needs only a pen and paper. Use a made-up project or a personal one, and keep it free of any real company details.
-
-1. Write down every step a change takes, from "developer starts coding" to "users have it". Include reviews, approvals, testing, packaging and deploying.
-2. For each step, estimate how long the **work** takes and how long the change **waits** before the step starts.
-3. Circle every **handoff**, where work passes to another person or team.
-4. Mark every **manual** step.
-
-Now look at the result:
-
-- Where does most of the time go: working or waiting? (Usually waiting.)
-- Which handoff or manual step would you remove first?
-- Which DORA metric would that improve?
-
-This is a simple version of **value stream mapping**, a lean technique teams use to find their biggest delays.
-
-## Common pitfalls
-
-- **Treating DevOps as a tool purchase.** Tools help only once the team shares ownership and works in small batches.
-- **Creating a separate "DevOps team" in the middle.** It often becomes a new wall between development and operations.
-- **Chasing speed and ignoring stability.** The DORA research shows the best teams improve both together.
-- **Using metrics to blame people.** That makes people hide problems, which slows learning.
-- **Automating a bad process.** Simplify the process first, then automate it.
-
-## Checkpoint
-
-**1. Why does "throwing it over the wall" fail?**
-
-The people who write the code never see it break in production, so they never learn how to make it easier to run. Operations receives changes it did not help design, so it slows releases down to stay safe. Releases grow bigger and riskier, feedback becomes slow, and the teams start blaming each other instead of fixing the system.
-
-**2. Name the four DORA metrics and what improves each one.**
-
-| Metric | What improves it |
-| --- | --- |
-| Deployment frequency | Smaller changes and an automated pipeline |
-| Lead time for changes | Fast automated tests and fewer handoffs and approvals |
-| Change failure rate | Better testing and gradual rollouts such as canary releases |
-| Time to restore service | Good monitoring, quick rollbacks and practised incident response |
-
-## Key takeaways
-
-1. DevOps is **culture plus practices**, not a job title or a set of tools.
-2. Its goal is to get changes to users **quickly and safely**, through shared ownership and automation.
-3. **CALMS** (Culture, Automation, Lean, Measurement, Sharing) is a checklist for judging how well a team works the DevOps way.
-4. The **Three Ways** (flow, feedback, continuous learning) are the principles behind every practice in this path.
-5. The **four DORA metrics** measure delivery. The best teams are fast and stable at the same time.
-6. Agile, DevOps, SRE and Platform Engineering work together. They focus on different parts of the same journey.
-
-**Next:** Module 2 covers Linux, the system almost every server you deploy to will run.
+| **C**ulture | Does everyone share responsibility, without blame? |
+| **A**utomation | Do computers do the repeated steps? |
+| **L**ean | Does work move in small pieces, with little waiting? |
+| **M**easurement | Do decisions use numbers, such as the DORA metrics? |
+| **S**haring | Is knowledge written down and shared? |
+
+## 7. Related names: Agile, SRE and Platform Engineering
+
+You will often hear these three names alongside DevOps:
+
+- **Agile** is about how a team plans and builds software in short steps. DevOps carries the same idea on through releasing and running it.
+- **SRE** (Site Reliability Engineering) is Google's way of doing DevOps, focused on keeping systems reliable. Module 16 covers it.
+- **Platform Engineering** builds shared tools so every team can follow the loop without building everything themselves. Module 20 covers it.
+
+## Module summary
+
+- **DevOps** is a way of working where Dev and Ops work as one team and automate the steps in between, so changes reach users quickly and safely.
+- Every change goes round the **DevOps loop**: Plan, Code, Build, Test, Release, Deploy, Operate, Monitor, then back to Plan.
+- DevOps appeared because splitting the loop between two teams, "throwing it over the wall", caused big releases, problems found late, and blame.
+- The **Three Ways** fix those three problems: **flow** (small changes that move quickly), **feedback** (find problems early) and **continuous learning** (fix causes, not people).
+- The four **DORA metrics** show whether it is working. Deployment frequency and lead time measure speed. Change failure rate and time to restore service measure stability. The best teams are fast and stable.
+- **CALMS** (Culture, Automation, Lean, Measurement, Sharing) is a quick check on a team's habits.
+- **Agile** covers planning and building in short steps. **SRE** and **Platform Engineering** are ways of putting DevOps into practice.
 
 ## Further reading
 
-- *The Phoenix Project* by Gene Kim, Kevin Behr and George Spafford: a novel about a failing IT team discovering DevOps. The easiest place to start.
-- *The DevOps Handbook* by Gene Kim, Jez Humble, Patrick Debois, John Willis and Nicole Forsgren: the practical guide to the Three Ways.
-- *Accelerate* by Nicole Forsgren, Jez Humble and Gene Kim: the research behind the DORA metrics.
-- The yearly DORA *State of DevOps* report, free on the DORA website.
+- *The Phoenix Project* by Gene Kim, Kevin Behr and George Spafford: a novel about a team discovering DevOps. No technical knowledge needed.
+- [dora.dev](https://dora.dev): the DORA research and the yearly *State of DevOps* report.
