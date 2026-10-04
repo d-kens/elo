@@ -2,7 +2,7 @@ body{margin:0}
 
 /* Layout: dark-first indigo "dojo wall". Serif display, grotesk body, mono for labels and code. One red seal as the only loud colour. */
 :root {
-  --bg: #0d1330; --bg-2: #131a3d; --fg: #eceef6; --muted: #9aa3c4; --line: #28326180;
+  --bg: #0d1330; --bg-2: #131a3d; --fg: #eceef6; --read: #cdd2e3; --muted: #9aa3c4; --line: #28326180;
   --red: #e8402f; --ok: #3fbf86;
   --f-display: "Shippori Mincho B1", "Hiragino Mincho ProN", Georgia, serif;
   --f-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -10,9 +10,9 @@ body{margin:0}
   color-scheme: dark;
 }
 @media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) { --bg: #f0f2f8; --bg-2: #e3e7f2; --fg: #0d1330; --muted: #4b5580; --line: #b5bdd7a0; --red: #d6321f; --ok: #1f8a5b; color-scheme: light; }
+  :root:not([data-theme="dark"]) { --bg: #f0f2f8; --bg-2: #e3e7f2; --fg: #0d1330; --read: #1c2242; --muted: #4b5580; --line: #b5bdd7a0; --red: #d6321f; --ok: #1f8a5b; color-scheme: light; }
 }
-:root[data-theme="light"] { --bg: #f0f2f8; --bg-2: #e3e7f2; --fg: #0d1330; --muted: #4b5580; --line: #b5bdd7a0; --red: #d6321f; --ok: #1f8a5b; color-scheme: light; }
+:root[data-theme="light"] { --bg: #f0f2f8; --bg-2: #e3e7f2; --fg: #0d1330; --read: #1c2242; --muted: #4b5580; --line: #b5bdd7a0; --red: #d6321f; --ok: #1f8a5b; color-scheme: light; }
 
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 17px; line-height: 1.65; padding-inline: 20px; }
@@ -35,6 +35,10 @@ button { font-family: inherit; }
 .wrap > nav ul { display: flex; gap: 28px; list-style: none; margin: 0 0 0 auto; padding: 0; font-size: 15px; }
 .wrap > nav ul a { text-decoration: none; color: var(--muted); }
 .wrap > nav ul a:hover, .wrap > nav ul a[aria-current] { color: var(--fg); }
+.theme-toggle { display: inline-grid; place-items: center; width: 34px; height: 34px; margin: -6px 0; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--muted); cursor: pointer; transition: color .2s, border-color .2s; }
+.theme-toggle:hover { color: var(--fg); border-color: var(--muted); }
+.theme-toggle svg { width: 16px; height: 16px; }
+.wrap > nav ul { align-items: center; }
 @media (max-width: 560px) { .wrap > nav ul { gap: 18px; margin: 0; width: 100%; } }
 
 /* home */
@@ -124,7 +128,9 @@ section { padding-block: 88px; }
 .notes-head h1 { font-size: clamp(40px, 6vw, 68px); margin-block: 12px 18px; }
 .notes-head .meta { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 22px; }
 .notes-head .lead { color: var(--muted); font-size: 19px; margin-bottom: 18px; }
-.md { font-size: 18px; line-height: 1.7; }
+.md { font-size: 18px; line-height: 1.7; color: var(--read); }
+.md h2, .md h3, .md strong, .md b { color: var(--fg); }
+.md > p, .md > ul, .md > ol, .md > blockquote { max-width: 68ch; }
 .md > * + * { margin-top: 18px; }
 .md h2 { font-size: clamp(28px, 3.4vw, 36px); margin-top: 52px; }
 .md h3 { font-size: 23px; margin-top: 34px; }
@@ -166,8 +172,7 @@ section { padding-block: 88px; }
 
 /* contents list on notes */
 .toc { margin-bottom: 44px; padding: 20px 24px; border-left: 2px solid var(--red); background: var(--bg-2); }
-.toc ol { margin: 10px 0 0; padding-left: 22px; display: grid; gap: 4px; font-size: 16px; }
-.toc li::marker { font: 500 12px var(--f-mono); color: var(--muted); }
+.toc ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 4px; font-size: 16px; }
 .toc a { text-decoration: none; }
 .toc a:hover { color: var(--red); }
 .md h2, .md h3 { scroll-margin-top: 20px; }

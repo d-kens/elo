@@ -57,9 +57,9 @@
       if (sections.length >= 3) {
         var toc = document.createElement('nav');
         toc.className = 'toc'; toc.setAttribute('aria-label', 'On this page');
-        toc.innerHTML = '<p class="mono">On this page</p><ol>' + Array.prototype.map.call(sections, function (h) {
+        toc.innerHTML = '<p class="mono">On this page</p><ul>' + Array.prototype.map.call(sections, function (h) {
           return '<li><a href="#' + h.id + '">' + esc(h.textContent) + '</a></li>';
-        }).join('') + '</ol>';
+        }).join('') + '</ul>';
         article.parentNode.insertBefore(toc, article);
       }
       Array.prototype.forEach.call(document.querySelectorAll('.md pre code'), function (c) {
