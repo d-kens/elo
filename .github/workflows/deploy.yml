@@ -1,0 +1,44 @@
+# Publishes the site to GitHub Pages on every push to master.
+# One-time setup: in the repository, go to Settings → Pages and set Source to "GitHub Actions".
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check that every published module has a notes file
+        run: |
+          for slug in $(grep -oE "'[a-z0-9-]+': \{ status: 'published'" curriculum.js | cut -d"'" -f2); do
+            test -f "notes/$slug.md" || { echo "::error::notes/$slug.md is missing but the module is marked published"; exit 1; }
+          done
+
+      - name: Collect the site files
+        run: |
+          mkdir _site
+          cp -R *.html *.js *.css *.svg *.png notes vendor _site/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
