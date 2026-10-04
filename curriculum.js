@@ -17,7 +17,7 @@
     { name: 'Orientation', blurb: 'Why DevOps exists, and how teams measure it.', modules: [
       mod('devops-mindset', 'The DevOps mindset', ['CALMS', 'The Three Ways', 'DORA metrics', 'DevOps, SRE and Platform Engineering'], null, null) ] },
     { name: 'Foundations', blurb: 'The everyday tools every later module depends on.', security: 'File permissions, SSH keys, and keeping secrets out of Git.', modules: [
-      mod('linux', 'Linux', ['Filesystem and permissions', 'Users and groups', 'Processes and signals', 'systemd, journald, cron', 'top, ss, lsof, strace'], 'Lab', 'Run a service under systemd, break it, and fix it using only logs.'),
+      mod('linux', 'Linux', ['Filesystem and permissions', 'Users and groups', 'Processes and signals', 'systemd, journald, cron', 'top, ss, lsof'], 'Lab', 'Run a service under systemd, break it, and fix it using only logs.'),
       mod('git', 'Git and branching strategies', ['Merge vs rebase', 'Resolving conflicts', 'Trunk-based vs GitFlow', 'Pull requests and review', 'Semantic versioning'], 'Lab', 'Simulate a team release with feature branches, a hotfix and a tag. Every lab from here on lives in a repo.'),
       mod('scripting', 'Scripting with Bash and Python', ['Bash essentials', 'set -euo pipefail', 'grep, awk, sed, jq', 'Python for automation', 'Bash or Python?'], 'Lab', 'Write a script that health-checks a set of URLs and alerts when one fails.'),
       mod('networking', 'Networking for DevOps', ['TCP/IP, CIDR, subnets', 'DNS, HTTP and TLS', 'Load balancers and proxies', 'NAT and firewalls', 'dig, curl, tcpdump'], null, null) ] },

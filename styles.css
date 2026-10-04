@@ -236,3 +236,8 @@ footer .l { display: flex; align-items: center; gap: 14px; }
 /* the DevOps loop diagram in Module 1 */
 .md figure.loop { margin: 32px 0; }
 @media (max-width: 560px) { .md figure.loop text { font-size: 32px; } }
+
+/* "Show answer" boxes in the notes */
+.md details { margin: 16px 0 24px; padding: 12px 18px; background: var(--bg-2); border-left: 2px solid var(--red); }
+.md details > summary { cursor: pointer; font-weight: 700; }
+.md details[open] > summary { margin-bottom: 8px; }
