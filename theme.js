@@ -2,7 +2,14 @@
    Without a saved choice the site follows the device setting. */
 (function () {
   var KEY = 'shuhari-theme', root = document.documentElement;
-  try { var saved = localStorage.getItem(KEY); if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved); } catch (e) {}
+  var COLOR = { dark: '#0d1330', light: '#f0f2f8' };   /* the browser bar colour; matches --bg in styles.css */
+
+  /* the page has one theme-color tag per device setting; a chosen theme overrides both */
+  function tint(t) {
+    Array.prototype.forEach.call(document.querySelectorAll('meta[name="theme-color"]'), function (m) { m.setAttribute('content', COLOR[t]); });
+  }
+
+  try { var saved = localStorage.getItem(KEY); if (saved === 'light' || saved === 'dark') { root.setAttribute('data-theme', saved); tint(saved); } } catch (e) {}
 
   function current() {
     var t = root.getAttribute('data-theme');
@@ -30,7 +37,7 @@
       var next = current() === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       try { localStorage.setItem(KEY, next); } catch (e) {}
-      paint(btn);
+      tint(next); paint(btn);
     });
   });
 })();

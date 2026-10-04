@@ -2,3 +2,6 @@
 .idea/
 .vscode/
 .DS_Store
+
+# Build output (node build.js)
+_site/

@@ -1,10 +1,11 @@
-/* Shuhari curriculum: shared by the path page and the notes page. */
+/* Shuhari curriculum: read by build.js to make the path page, the notes pages and the search index. */
 (function () {
   /* ---------- publishing status ----------
      When you publish notes for a module:
        1. add notes/<slug>.md  (copy notes/_template.md)
        2. add or update its line below
-     status: 'published' (notes are live) or 'progress' (being written). Leave a module out while it is not started. */
+     status: 'published' (notes are live) or 'progress' (being written). Leave a module out while it is not started.
+     The build stops if a published module has no notes file, or a line here names a module that does not exist. */
   var NOTES = {
     'devops-mindset': { status: 'published', updated: '2026-10-04' },
     'linux': { status: 'published', updated: '2026-10-04' }
@@ -52,20 +53,5 @@
     });
   });
 
-  function pad(x) { return String(x).padStart(2, '0'); }
-  function niceDate(iso) { return new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
-
-  function slugify(t) { return String(t).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'section'; }
-
-  /* give every h2/h3 in rendered notes a stable id, so the contents list and search results can link to it */
-  function addHeadingIds(root) {
-    var seen = {};
-    Array.prototype.forEach.call(root.querySelectorAll('h2, h3'), function (h) {
-      var id = slugify(h.textContent);
-      seen[id] = (seen[id] || 0) + 1;
-      h.id = seen[id] > 1 ? id + '-' + seen[id] : id;
-    });
-  }
-
-  window.SHUHARI = { PHASES: PHASES, MODULES: MODULES, pad: pad, niceDate: niceDate, slugify: slugify, addHeadingIds: addHeadingIds };
+  module.exports = { NOTES: NOTES, PHASES: PHASES, MODULES: MODULES };
 })();

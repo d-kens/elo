@@ -25,16 +25,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check that every published module has a notes file
-        run: |
-          for slug in $(grep -oE "'[a-z0-9-]+': \{ status: 'published'" curriculum.js | cut -d"'" -f2); do
-            test -f "notes/$slug.md" || { echo "::error::notes/$slug.md is missing but the module is marked published"; exit 1; }
-          done
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-      - name: Collect the site files
-        run: |
-          mkdir _site
-          cp -R *.html *.js *.css *.svg *.png notes vendor _site/
+      # Also checks the curriculum: fails if a published module has no notes file.
+      - name: Build the site
+        run: node build.js
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
