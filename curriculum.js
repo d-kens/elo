@@ -6,7 +6,8 @@
        2. add or update its line below
      status: 'published' (notes are live) or 'progress' (being written). Leave a module out while it is not started. */
   var NOTES = {
-    'devops-mindset': { status: 'published', updated: '2026-10-04' }
+    'devops-mindset': { status: 'published', updated: '2026-10-04' },
+    'linux': { status: 'published', updated: '2026-10-04' }
   };
 
   /* ---------- phases and modules ---------- */
