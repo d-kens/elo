@@ -80,7 +80,7 @@ ${share}
 
 <div class="wrap">
   <nav aria-label="Site">
-    <a class="logo" href="${r}index.html">${NAME}</a>
+    <a class="logo" href="${r}index.html" aria-label="${NAME}">Shuhari<span class="logo-rest" aria-hidden="true"> Academy</span></a>
     <ul>
       ${navLink('paths.html', 'The path', 'paths')}
       ${navLink('search.html', 'Search', 'search')}
@@ -156,6 +156,23 @@ ${phases}
 </main>`;
 }
 
+/* ---------- the path at a glance, on the home page ---------- */
+function glance() {
+  const phase = (ph, pi) => {
+    const n = ph.modules.length, live = ph.modules.filter((m) => m.status === 'published').length;
+    const progress = live ? `<span class="status published">${live} of ${n} published</span>` : `<span class="status coming">${n} module${n === 1 ? '' : 's'} · coming</span>`;
+    return `<li><a href="paths.html#phase-${pi}"><span class="mono">Phase ${pi}</span><b>${ph.name}</b><p>${ph.blurb}</p><span class="mono">${progress}</span></a></li>`;
+  };
+  return `<section class="glance" aria-labelledby="glance-title">
+    <p class="mono">The path at a glance</p>
+    <h2 id="glance-title">${PHASES.length} phases, ${MODULES.length} modules.</h2>
+    <ol>
+      ${PHASES.map(phase).join('\n      ')}
+    </ol>
+    <p class="more"><a class="link" href="paths.html">See every module</a></p>
+  </section>`;
+}
+
 /* ---------- a module's notes page ---------- */
 function notesPage(m, notes) {
   const ph = PHASES[m.phase];
@@ -184,7 +201,7 @@ ${yourTurn(m)}<nav class="pn" aria-label="Modules">${neighbour(-1)}${neighbour(1
 fs.rmSync(OUT, { recursive: true, force: true });
 ASSETS.forEach((f) => { fs.mkdirSync(OUT, { recursive: true }); fs.copyFileSync(path.join(ROOT, f), path.join(OUT, f)); });
 
-write('index.html', layout({ url: '', description: HOME_DESC, body: read('src/pages/index.html') }));
+write('index.html', layout({ url: '', description: HOME_DESC, body: read('src/pages/index.html').replace('<!-- PATH AT A GLANCE: filled in by build.js -->', glance()) }));
 write('search.html', layout({ url: 'search.html', title: 'Search', description: 'Search the Shuhari Academy DevOps notes and curriculum.',
   current: 'search', body: read('src/pages/search.html'), scripts: ['search.js'] }));
 write('404.html', layout({ root: BASE, title: 'Page not found', noindex: true, body: read('src/pages/404.html').replace(/href="(?![a-z]+:|\/|#)/g, `href="${BASE}`) }));
