@@ -31,10 +31,9 @@ button { font-family: inherit; }
 .link { font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; text-decoration-color: var(--red); }
 
 .wrap > nav { display: flex; align-items: center; justify-content: space-between; gap: 16px 28px; flex-wrap: wrap; padding-block: 24px; }
-/* wordmark: "Michi" in the display serif, "ACADEMY" in spaced mono caps, like the site's labels */
+/* wordmark: "elo" in the display serif */
 .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .logo-word { font: 800 26px/1 var(--f-display); letter-spacing: -0.01em; }
-.logo-rest { font: 500 11.5px/1 var(--f-mono); letter-spacing: .24em; text-transform: uppercase; color: var(--muted); padding: 5px 0 5px 12px; margin-top: 3px; border-left: 2px solid var(--red); }
 .wrap > nav ul { display: flex; gap: 28px; list-style: none; margin: 0 0 0 auto; padding: 0; font: 500 12.5px var(--f-mono); letter-spacing: .12em; text-transform: uppercase; }
 .wrap > nav ul a { text-decoration: none; color: var(--muted); }
 .wrap > nav ul a:hover, .wrap > nav ul a[aria-current] { color: var(--fg); }
@@ -52,7 +51,6 @@ button { font-family: inherit; }
   .wrap > nav ul a[aria-current] { text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 6px; }
   .theme-toggle { width: 40px; height: 40px; margin: 0 0 0 4px; }
 }
-@media (max-width: 419px) { .logo-rest { display: none; } }
 
 /* home */
 .home { position: relative; }
@@ -73,16 +71,6 @@ section { padding-block: 88px; }
 @keyframes stamp { from { transform: scale(1.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @media (max-width: 899px) { .enso { right: -12%; top: 40px; width: min(90vw, 380px); opacity: .3; } .stamp { display: none; } }
 
-/* definition of the name */
-.home > .define { padding-block: 0 88px; }
-.define .entry { max-width: 48em; }
-.define .word { font: 800 clamp(32px, 4vw, 48px)/1.06 var(--f-display); letter-spacing: .01em; }
-.define .word span { color: var(--red); padding-inline: .05em; }
-.define .pron { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 8px; }
-.define .pron span + span::before { content: "·"; margin-right: 22px; color: var(--red); }
-.define .gloss { font: 500 16px/1.5 var(--f-display); margin-top: 12px; max-width: 38em; color: var(--muted); }
-.define .gloss em { font-style: normal; text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 5px; }
-@media (max-width: 860px) { .define .pron span + span::before { display: none; } }
 /* the path at a glance */
 .home > .glance { padding-top: 0; }
 .glance h2 { font-size: clamp(32px, 4.4vw, 54px); margin-top: 10px; }

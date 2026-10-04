@@ -8,9 +8,9 @@ const { marked } = require('./vendor/marked.min.js');
 const hljs = require('./vendor/highlight.min.js');
 const { NOTES, PHASES, MODULES } = require('./curriculum.js');
 
-const SITE = 'https://d-kens.github.io/michi';       /* the live address, without a trailing slash */
-const BASE = new URL(SITE).pathname + '/';              /* '/michi/': the 404 page needs absolute links */
-const NAME = 'Michi Academy';
+const SITE = 'https://d-kens.github.io/elo';       /* the live address, without a trailing slash */
+const BASE = new URL(SITE).pathname + '/';              /* '/elo/': the 404 page needs absolute links */
+const NAME = 'elo';
 const HOME_DESC = 'Learn DevOps, one step at a time. Detailed notes for a step-by-step path, from the DevOps mindset to running systems in production.';
 const ASSETS = ['styles.css', 'theme.js', 'search.js', 'notes.js', 'favicon.svg', 'og-image.png'];
 const LABEL = { published: 'Notes published', progress: 'In progress', coming: 'Coming' };
@@ -80,7 +80,7 @@ ${share}
 
 <div class="wrap">
   <nav aria-label="Site">
-    <a class="logo" href="${r}index.html" aria-label="${NAME}"><span class="logo-word" aria-hidden="true">Michi</span><span class="logo-rest" aria-hidden="true">Academy</span></a>
+    <a class="logo" href="${r}index.html" aria-label="${NAME}"><span class="logo-word" aria-hidden="true">elo</span></a>
     <ul>
       ${navLink('paths.html', 'The path', 'paths')}
       ${navLink('search.html', 'Search', 'search')}
@@ -202,7 +202,7 @@ fs.rmSync(OUT, { recursive: true, force: true });
 ASSETS.forEach((f) => { fs.mkdirSync(OUT, { recursive: true }); fs.copyFileSync(path.join(ROOT, f), path.join(OUT, f)); });
 
 write('index.html', layout({ url: '', description: HOME_DESC, body: read('src/pages/index.html').replace('<!-- PATH AT A GLANCE: filled in by build.js -->', glance()) }));
-write('search.html', layout({ url: 'search.html', title: 'Search', description: 'Search the Michi Academy DevOps notes and curriculum.',
+write('search.html', layout({ url: 'search.html', title: 'Search', description: 'Search the elo DevOps notes and curriculum.',
   current: 'search', body: read('src/pages/search.html'), scripts: ['search.js'] }));
 write('404.html', layout({ root: BASE, title: 'Page not found', noindex: true, body: read('src/pages/404.html').replace(/href="(?![a-z]+:|\/|#)/g, `href="${BASE}`) }));
 write('paths.html', layout({ url: 'paths.html', title: 'The path', current: 'paths', body: pathsPage(),
@@ -219,7 +219,7 @@ published.forEach((m) => {
   searchIndex.push(...notes.entries);
   write(`notes/${m.slug}.html`, layout({
     root: '../', url: `notes/${m.slug}.html`, title: m.title, ogType: 'article', current: 'paths', currentKind: 'true',
-    description: `Notes for Module ${m.num} of the Michi Academy DevOps path: ${m.title}. ${m.tags.join(', ')}.`,
+    description: `Notes for Module ${m.num} of the elo DevOps path: ${m.title}. ${m.tags.join(', ')}.`,
     body: notesPage(m, notes), scripts: ['notes.js']
   }));
 });
