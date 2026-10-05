@@ -147,7 +147,7 @@ function pathsPage() {
     (ph.security ? `<p class="sec"><span class="mono">Security thread</span>${ph.security}</p>` : '') +
     `<p class="mono count">${ph.modules.length} module${ph.modules.length === 1 ? '' : 's'}</p></div>\n` +
     `<div class="pms">\n${ph.modules.map(card).join('\n')}\n</div></section>`).join('\n');
-  return `<main><header class="page-head"><p class="mono">The DevOps path</p><h1>From mindset to production.</h1>
+  return `<main><header class="page-head"><p class="mono">The DevOps path</p><h1>Ship it safely. Keep it running.</h1>
 <p class="lead">${MODULES.length} modules in ${PHASES.length} phases. Detailed notes are published module by module, so you can follow along at your own pace. Most modules end with a lab, and it all finishes with a capstone project.</p>
 <p class="mono progress"><span class="status published">${published.length} of ${MODULES.length} published</span></p>
 <nav class="phase-index" aria-label="Phases">
@@ -165,7 +165,7 @@ function pathsHome() {
     <h2 id="paths-title">Choose a path.</h2>
     <div class="cards">
       <a class="card" href="paths.html"><p class="mono"><span class="status published">Open</span><span>${PHASES.length} phases</span><span>${MODULES.length} modules</span></p>
-        <h3>${PATH_NAME}</h3><p>From the mindset to running systems in production: Linux, networking, CI/CD, containers, Kubernetes, cloud and more.</p>
+        <h3>${PATH_NAME}</h3><p>Linux, networking, CI/CD, containers, Kubernetes, cloud and more.</p>
         <p class="mono">${live} of ${MODULES.length} modules published</p><span class="link go">Start the path</span></a>
       <div class="card soon"><p class="mono"><span class="status">Coming</span></p>
         <h3>More paths</h3><p>New paths are on the way. Subscribe to hear when the next one opens.</p>
