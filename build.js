@@ -8,12 +8,13 @@ const { marked } = require('./vendor/marked.min.js');
 const hljs = require('./vendor/highlight.min.js');
 const { NOTES, PHASES, MODULES } = require('./curriculum.js');
 
-const SITE = 'https://d-kens.github.io/elo';       /* the live address, without a trailing slash */
-const BASE = new URL(SITE).pathname + '/';              /* '/elo/': the 404 page needs absolute links */
-const NAME = 'elo';
-const HOME_DESC = 'Learn DevOps, one step at a time. Detailed notes for a step-by-step path, from the DevOps mindset to running systems in production.';
+const SITE = 'https://d-kens.github.io/open-path';       /* the live address, without a trailing slash */
+const BASE = new URL(SITE).pathname + '/';              /* '/open-path/': the 404 page needs absolute links */
+const NAME = 'Open Path';
+const HOME_DESC = 'Build real skills, one step at a time. Free, detailed notes laid out as step-by-step paths you can follow at your own pace.';
 const ASSETS = ['styles.css', 'theme.js', 'search.js', 'notes.js', 'favicon.svg', 'og-image.png'];
 const LABEL = { published: 'Notes published', progress: 'In progress', coming: 'Coming' };
+const PATH_NAME = 'DevOps';   /* the one path so far; curriculum.js holds its modules */
 const THEME_COLOR = { dark: '#0d1330', light: '#f0f2f8' };   /* keep in step with theme.js and styles.css */
 
 const ROOT = __dirname;
@@ -72,7 +73,7 @@ ${p.description ? `<meta name="description" content="${esc(p.description)}">\n` 
 ${share}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Hanken+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Hanken+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="${r}styles.css">
 <script src="${r}theme.js"></script>${p.headScript ? `\n<script>${p.headScript}</script>` : ''}
 </head>
@@ -80,9 +81,9 @@ ${share}
 
 <div class="wrap">
   <nav aria-label="Site">
-    <a class="logo" href="${r}index.html" aria-label="${NAME}"><span class="logo-word" aria-hidden="true">elo</span></a>
+    <a class="logo" href="${r}index.html" aria-label="${NAME}"><span class="logo-word" aria-hidden="true"><span class="o">open</span><span class="s">/</span><span class="p">Path</span></span></a>
     <ul>
-      ${navLink('paths.html', 'The path', 'paths')}
+      ${navLink('paths.html', 'Paths', 'paths')}
       ${navLink('search.html', 'Search', 'search')}
     </ul>
   </nav>
@@ -146,7 +147,7 @@ function pathsPage() {
     (ph.security ? `<p class="sec"><span class="mono">Security thread</span>${ph.security}</p>` : '') +
     `<p class="mono count">${ph.modules.length} module${ph.modules.length === 1 ? '' : 's'}</p></div>\n` +
     `<div class="pms">\n${ph.modules.map(card).join('\n')}\n</div></section>`).join('\n');
-  return `<main><header class="page-head"><p class="mono">The path</p><h1>From mindset to production.</h1>
+  return `<main><header class="page-head"><p class="mono">The DevOps path</p><h1>From mindset to production.</h1>
 <p class="lead">${MODULES.length} modules in ${PHASES.length} phases. Detailed notes are published module by module, so you can follow along at your own pace. Most modules end with a lab, and it all finishes with a capstone project.</p>
 <p class="mono progress"><span class="status published">${published.length} of ${MODULES.length} published</span></p>
 <nav class="phase-index" aria-label="Phases">
@@ -156,20 +157,34 @@ ${phases}
 </main>`;
 }
 
-/* ---------- the path at a glance, on the home page ---------- */
-function glance() {
-  const phase = (ph, pi) => {
-    const n = ph.modules.length, live = ph.modules.filter((m) => m.status === 'published').length;
-    const progress = live ? `<span class="status published">${live} of ${n} published</span>` : `<span class="status coming">${n} module${n === 1 ? '' : 's'} · coming</span>`;
-    return `<li><a href="paths.html#phase-${pi}"><span class="mono">Phase ${pi}</span><b>${ph.name}</b><p>${ph.blurb}</p><span class="mono">${progress}</span></a></li>`;
-  };
-  return `<section class="glance" aria-labelledby="glance-title">
-    <p class="mono">The path at a glance</p>
-    <h2 id="glance-title">${PHASES.length} phases, ${MODULES.length} modules.</h2>
-    <ol>
-      ${PHASES.map(phase).join('\n      ')}
-    </ol>
-    <p class="more"><a class="link" href="paths.html">See every module</a></p>
+/* ---------- home page: the paths, and the latest notes ---------- */
+function pathsHome() {
+  const live = published.length;
+  return `<section class="home-paths" id="paths" aria-labelledby="paths-title">
+    <p class="mono">Paths</p>
+    <h2 id="paths-title">Choose a path.</h2>
+    <div class="cards">
+      <a class="card" href="paths.html"><p class="mono"><span class="status published">Open</span><span>${PHASES.length} phases</span><span>${MODULES.length} modules</span></p>
+        <h3>${PATH_NAME}</h3><p>From the mindset to running systems in production: Linux, networking, CI/CD, containers, Kubernetes, cloud and more.</p>
+        <p class="mono">${live} of ${MODULES.length} modules published</p><span class="link go">Start the path</span></a>
+      <div class="card soon"><p class="mono"><span class="status">Coming</span></p>
+        <h3>More paths</h3><p>New paths are on the way. Subscribe to hear when the next one opens.</p>
+        <a class="link go" href="#notify">Get notified</a></div>
+    </div>
+  </section>`;
+}
+
+function latest() {
+  const recent = published.slice().sort((a, b) => (b.updated || '').localeCompare(a.updated || '') || b.num - a.num).slice(0, 3);
+  if (!recent.length) return '';
+  const card = (m) => `<a class="card" href="notes/${m.slug}.html"><p class="mono"><span>${PATH_NAME}</span><span>Module ${pad(m.num)}</span>${m.updated ? `<span>${niceDate(m.updated)}</span>` : ''}</p>
+        <h3>${m.title}</h3>${tags(m)}<span class="link go">Read the notes</span></a>`;
+  return `<section class="latest" aria-labelledby="latest-title">
+    <p class="mono">Latest notes</p>
+    <h2 id="latest-title">Fresh off the path.</h2>
+    <div class="cards">
+      ${recent.map(card).join('\n      ')}
+    </div>
   </section>`;
 }
 
@@ -183,11 +198,11 @@ function notesPage(m, notes) {
     return x.status === 'published' ? `<a href="${x.slug}.html">${inner}</a>` : `<div class="soon">${inner}<span class="mono">${LABEL[x.status]}</span></div>`;
   };
   const toc = notes.sections.length >= 3
-    ? '<nav class="toc" aria-label="On this page"><p class="mono">On this page</p><ul>' +
-      notes.sections.map((s) => `<li><a href="#${s.id}">${esc(s.text)}</a></li>`).join('') + '</ul></nav>\n'
+    ? '<nav class="toc" aria-label="On this page"><details open><summary class="mono">On this page</summary><ul>' +
+      notes.sections.map((s) => `<li><a href="#${s.id}">${esc(s.text)}</a></li>`).join('') + '</ul></details></nav>\n'
     : '';
   return `<main class="notes">
-<header class="notes-head"><p class="mono crumbs"><a href="../paths.html">The path</a> / <a href="../paths.html#phase-${m.phase}">Phase ${m.phase} · ${ph.name}</a></p>
+<header class="notes-head"><p class="mono crumbs"><a href="../paths.html">The DevOps path</a> / <a href="../paths.html#phase-${m.phase}">Phase ${m.phase} · ${ph.name}</a></p>
 <p class="mono">Module ${pad(m.num)}</p><h1>${m.title}</h1>
 <p class="mono meta"><span class="status ${m.status}">${LABEL[m.status]}</span>${updated(m)}</p>
 ${tags(m)}</header>
@@ -201,12 +216,13 @@ ${yourTurn(m)}<nav class="pn" aria-label="Modules">${neighbour(-1)}${neighbour(1
 fs.rmSync(OUT, { recursive: true, force: true });
 ASSETS.forEach((f) => { fs.mkdirSync(OUT, { recursive: true }); fs.copyFileSync(path.join(ROOT, f), path.join(OUT, f)); });
 
-write('index.html', layout({ url: '', description: HOME_DESC, body: read('src/pages/index.html').replace('<!-- PATH AT A GLANCE: filled in by build.js -->', glance()) }));
-write('search.html', layout({ url: 'search.html', title: 'Search', description: 'Search the elo DevOps notes and curriculum.',
+write('index.html', layout({ url: '', description: HOME_DESC, body: read('src/pages/index.html')
+  .replace('<!-- PATHS: filled in by build.js -->', pathsHome()).replace('<!-- LATEST: filled in by build.js -->', latest()) }));
+write('search.html', layout({ url: 'search.html', title: 'Search', description: 'Search the Open Path notes and paths.',
   current: 'search', body: read('src/pages/search.html'), scripts: ['search.js'] }));
 write('404.html', layout({ root: BASE, title: 'Page not found', noindex: true, body: read('src/pages/404.html').replace(/href="(?![a-z]+:|\/|#)/g, `href="${BASE}`) }));
-write('paths.html', layout({ url: 'paths.html', title: 'The path', current: 'paths', body: pathsPage(),
-  description: `${MODULES.length} modules in ${PHASES.length} phases, from the DevOps mindset to Kubernetes, observability and security, ending with a capstone project.` }));
+write('paths.html', layout({ url: 'paths.html', title: 'The DevOps path', current: 'paths', body: pathsPage(),
+  description: `The DevOps path: ${MODULES.length} modules in ${PHASES.length} phases, from the DevOps mindset to Kubernetes, observability and security, ending with a capstone project.` }));
 
 /* search index: one entry per module, plus one per section of its published notes */
 const searchIndex = MODULES.map((m) => ({
@@ -219,7 +235,7 @@ published.forEach((m) => {
   searchIndex.push(...notes.entries);
   write(`notes/${m.slug}.html`, layout({
     root: '../', url: `notes/${m.slug}.html`, title: m.title, ogType: 'article', current: 'paths', currentKind: 'true',
-    description: `Notes for Module ${m.num} of the elo DevOps path: ${m.title}. ${m.tags.join(', ')}.`,
+    description: `Notes for Module ${m.num} of the DevOps path on Open Path: ${m.title}. ${m.tags.join(', ')}.`,
     body: notesPage(m, notes), scripts: ['notes.js']
   }));
 });

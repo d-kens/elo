@@ -1,5 +1,9 @@
-/* Notes pages are built ahead of time by build.js; this only adds a Copy button to each code block. */
+/* Notes pages are built ahead of time by build.js; this adds a Copy button to each code block,
+   and folds the contents list on phones so the reading starts on the first screen. */
 (function () {
+  var toc = document.querySelector('.toc details');
+  if (toc && window.matchMedia('(max-width: 700px)').matches) toc.removeAttribute('open');
+
   Array.prototype.forEach.call(document.querySelectorAll('.md pre'), function (pre) {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'copy'; b.textContent = 'Copy';
     pre.appendChild(b);

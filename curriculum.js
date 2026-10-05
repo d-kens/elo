@@ -1,4 +1,4 @@
-/* elo curriculum: read by build.js to make the path page, the notes pages and the search index. */
+/* Open Path curriculum: read by build.js to make the path page, the notes pages and the search index. */
 (function () {
   /* ---------- publishing status ----------
      When you publish notes for a module:
