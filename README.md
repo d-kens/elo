@@ -1,6 +1,6 @@
 # Open Path
 
-Your path to mastery. A static site of free, detailed notes laid out as step-by-step paths. The first path is DevOps, from the mindset to running systems in production.
+Your path to mastery. A static site of free, structured paths that take you from the first step to real expertise, with each step building on the last.
 
 Live at <https://d-kens.github.io/open-path/>.
 
