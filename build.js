@@ -222,7 +222,7 @@ write('search.html', layout({ url: 'search.html', title: 'Search', description: 
   current: 'search', body: read('src/pages/search.html'), scripts: ['search.js'] }));
 write('404.html', layout({ root: BASE, title: 'Page not found', noindex: true, body: read('src/pages/404.html').replace(/href="(?![a-z]+:|\/|#)/g, `href="${BASE}`) }));
 write('paths.html', layout({ url: 'paths.html', title: 'The DevOps path', current: 'paths', body: pathsPage(),
-  description: `The DevOps path: ${MODULES.length} modules in ${PHASES.length} phases, from the DevOps mindset to Kubernetes, observability and security, ending with a capstone project.` }));
+  description: `Ship it safely. Keep it running. The DevOps path: ${MODULES.length} modules in ${PHASES.length} phases covering delivery, infrastructure, operations and security, ending with a capstone project.` }));
 
 /* search index: one entry per module, plus one per section of its published notes */
 const searchIndex = MODULES.map((m) => ({
