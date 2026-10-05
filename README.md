@@ -1,6 +1,6 @@
 # Open Path
 
-Build real skills, one step at a time. A static site of free, detailed notes laid out as step-by-step paths. The first path is DevOps, from the mindset to running systems in production.
+Your path to mastery. A static site of free, detailed notes laid out as step-by-step paths. The first path is DevOps, from the mindset to running systems in production.
 
 Live at <https://d-kens.github.io/open-path/>.
 
